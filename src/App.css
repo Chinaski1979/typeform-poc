@@ -60,6 +60,7 @@ a {
 .responses-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .developer-response-item h4 {
   margin: 0;

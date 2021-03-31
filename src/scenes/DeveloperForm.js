@@ -21,9 +21,7 @@ const DeveloperForm = () => {
   }, []);
 
   return (
-    <div id="target-dom-node" >
-      yo
-    </div>
+    <div id="target-dom-node" />
   )
 };
 

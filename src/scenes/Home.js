@@ -7,6 +7,8 @@ const Home = () => (
       <Link to="/client-form">Client Form</Link>
       <div className="divider"/>
       <Link to="/developer-responses">Developer Responses</Link>
+      <div className="divider"/>
+      <Link to="/client-responses">Client Responses</Link>
   </div>
 );
   

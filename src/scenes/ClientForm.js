@@ -1,9 +1,32 @@
 import { Link } from 'react-router-dom';
-const ClientForm = () => (
-  <div>
-      <h2>Client Form</h2>
-      <Link to="/">Go back home</Link>
-  </div>
-);
+// 
+
+import { useEffect } from 'react';
+import * as typeformEmbed from '@typeform/embed';
+
+const DeveloperForm = () => {
+  useEffect(() => {
+    const typeformEl = document.querySelector('#target-dom-node') // NOTE: `.target-dom-node` is the target DOM element from your website or web app
   
-export default ClientForm;
+    typeformEmbed.makeWidget(
+      typeformEl,
+      'https://form.typeform.com/to/FMR2xj4K?typeform-medium=embed-snippet', // NOTE: Replace with your typeform URL
+      {
+        hideHeaders: true,
+        hideFooter: true,
+        opacity: 75,
+        buttonText: "Take the survey!",
+        onSubmit: function () {
+          console.log('Typeform successfully submitted')
+        }
+      }
+    )
+  }, []);
+
+  return (
+    <div id="target-dom-node" />
+  )
+};
+
+export default DeveloperForm;
+
