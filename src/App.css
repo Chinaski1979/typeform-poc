@@ -61,7 +61,13 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
+
+.responses-container > div {
+  position: relative;
+}
+
 .developer-response-item h4 {
   margin: 0;
 }
@@ -69,4 +75,9 @@ a {
 .developer-response-item--responses {
   text-align: left;
   font-size: 16px;
+}
+.responses-container--match-checkbox {
+  position: absolute;
+  top: 23px;
+  right: 23px;
 }

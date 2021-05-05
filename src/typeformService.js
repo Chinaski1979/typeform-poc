@@ -2,21 +2,13 @@ import axios from 'axios';
 import { _setClientsResponses, _setClientMatches } from './store/clientFormReducer';
 import { _setDevelopersResponses } from './store/developerFormReducer';
 
-const token = 'HpWeYH82tiBmcN7ywLbWNaV3pYajpae6j7o85p8JQ7nv';
 const instance = axios.create({
-  baseURL: 'https://api.typeform.com/',
+  baseURL: 'http://localhost:8080/api/1.0',
   timeout: 1000,
   headers: {
-    'Authorization': `Bearer ${token}`,
     'content-type': 'application/json',
-    'Access-Control-Allow-Origin' : '*',
-    'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
   },
 });
-
-const DEVELOPER_FORM_ID = 'zisBMS5p';
-const CLIENT_FORM_ID = 'FMR2xj4K';
 
 const queryHandler = (queryParams) => {
   const { textFilter } = queryParams;
@@ -33,8 +25,8 @@ const queryHandler = (queryParams) => {
 export const getDeveloperResponses = (queryParams = {}) => async dispatch => {
   try {
     const query = queryHandler(queryParams);
-    const response = await instance.get(`forms/${DEVELOPER_FORM_ID}/responses?completed=true${query.length ? query : ''}`);
-    dispatch(_setDevelopersResponses(response.data.items.map(item => item.answers)));
+    const { data } = await instance.get(`developerResponses?completed=true${query.length ? query : ''}`);
+    dispatch(_setDevelopersResponses(data.response));
   } catch (err) {
     console.log(err);
   } 
@@ -43,8 +35,8 @@ export const getDeveloperResponses = (queryParams = {}) => async dispatch => {
 export const getClientResponses = (queryParams = {}) => async dispatch => {
   try {
     const query = queryHandler(queryParams);
-    const response = await instance.get(`forms/${CLIENT_FORM_ID}/responses?completed=true${query.length ? query : ''}`);
-    dispatch(_setClientsResponses(response.data.items.map(item => item.answers)));
+    const { data } = await instance.get(`clientResponses?completed=true${query.length ? query : ''}`);
+    dispatch(_setClientsResponses(data.response));
   } catch (err) {
     console.log(err);
   } 
@@ -52,8 +44,8 @@ export const getClientResponses = (queryParams = {}) => async dispatch => {
 
 export const getMatchingDevelopers = (query) => async dispatch => {
   try {
-    const response = await instance.get(`forms/${DEVELOPER_FORM_ID}/responses?completed=true&query=${query}`);
-    dispatch(_setClientMatches(response.data.items.map(item => item.answers)));
+    const { data } = await instance.get(`developerResponses?completed=true&query=${query}`);
+    dispatch(_setClientMatches(data.response));
   } catch (err) {
     console.log(err);
   } 
